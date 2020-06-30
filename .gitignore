@@ -65,4 +65,3 @@ build
 import-summary.txt
 
 apikey.properties
-echo apikey.properties
