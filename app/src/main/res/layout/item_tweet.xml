@@ -24,6 +24,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfile"
+        android:textStyle="bold"
         tools:text="Chianna Cohen" />
 
     <TextView
@@ -35,4 +36,29 @@
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfile"
         tools:text="This is my tweet.....haahahahhahahahha" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvBody"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="2dp"
+        tools:text="3s" />
+
+    <TextView
+        android:id="@+id/tvHandle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_toStartOf="@+id/tvTime"
+        android:layout_toEndOf="@+id/tvScreenName"
+        tools:text="Chianna_li" />
+
 </RelativeLayout>

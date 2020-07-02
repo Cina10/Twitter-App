@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.github.scribejava.apis.TwitterApi;
 
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
@@ -44,13 +46,13 @@ public class ComposeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //make API call to twitter to publish tweet
                 final String tweetContent = etCompose.getText().toString();
-                if(tweetContent.isEmpty()){
+                if (tweetContent.isEmpty()){
                     Toast.makeText(ComposeActivity.this,
                             "Sorry, Your tweet cannot be empty",
                             Toast.LENGTH_SHORT).show();
                     // Snackbar is typically better for error handling
                     return;
-                } else if(tweetContent.length() > MAX_TWEET_LENGTH){
+                } else if (tweetContent.length() > MAX_TWEET_LENGTH){
                     Toast.makeText(ComposeActivity.this,
                             "Sorry, Your tweet is too long",
                             Toast.LENGTH_SHORT).show();
@@ -62,6 +64,10 @@ public class ComposeActivity extends AppCompatActivity {
                             try {
                                 Tweet tweet = Tweet.fromJson(json.jsonObject);
                                 Log.i(TAG, "Published tweet! It says: " + tweet.body);
+                                Intent i = new Intent();
+                                i.putExtra("tweet", Parcels.wrap(tweet));
+                                setResult(RESULT_OK, i);
+                                finish(); // Closes activity and sends result to parent
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

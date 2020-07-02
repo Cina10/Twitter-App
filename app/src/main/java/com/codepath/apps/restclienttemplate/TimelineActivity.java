@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,10 +19,12 @@ import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.parceler.Parcels;
 
 import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Headers;
 
@@ -93,7 +96,14 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-
+            // Get data from intent
+            Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+            // Update recycler view with new tweet
+            // Modify data source to include tweet
+            tweets.add(0, tweet);
+            // Update adaptor
+            adaptor.notifyItemInserted(0);
+            rvTweets.smoothScrollToPosition(0);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -107,12 +117,13 @@ public class TimelineActivity extends AppCompatActivity {
                 try {
                     adaptor.clear();
                     adaptor.addAll(Tweet.fromJsonArray(jsonArray));
-
                     swipeContainer.setRefreshing(false);
+
+                    // Before implementing swipe to refresh
 //                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
 //                    adaptor.notifyDataSetChanged();
                } catch (JSONException e) {
-                  Log.e(TAG, "JSON exception",e);
+                  Log.e(TAG, "JSON exception", e);
                }
 
             }
@@ -123,4 +134,5 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
+
 }
