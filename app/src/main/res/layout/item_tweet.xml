@@ -61,13 +61,12 @@
             android:layout_marginEnd="7dp"
             tools:text="3s" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvBody"
             android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
@@ -79,9 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:visibility="gone"
                 tools:srcCompat="@tools:sample/avatars" />
-        </com.google.android.material.card.MaterialCardView>
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tvHandle"

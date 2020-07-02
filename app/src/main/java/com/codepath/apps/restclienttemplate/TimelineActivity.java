@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -21,10 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.parceler.Parcels;
 
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import okhttp3.Headers;
 
@@ -120,8 +119,8 @@ public class TimelineActivity extends AppCompatActivity {
                     swipeContainer.setRefreshing(false);
 
                     // Before implementing swipe to refresh
-//                    tweets.addAll(Tweet.fromJsonArray(jsonArray));
-//                    adaptor.notifyDataSetChanged();
+                    //tweets.addAll(Tweet.fromJsonArray(jsonArray));
+                    //adaptor.notifyDataSetChanged();
                } catch (JSONException e) {
                   Log.e(TAG, "JSON exception", e);
                }

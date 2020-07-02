@@ -83,7 +83,6 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
             tvHandle = itemView.findViewById(R.id.tvHandle);
             tvTime = itemView.findViewById(R.id.tvTime);
             ivMedia = itemView.findViewById(R.id.ivMedia);
-                ivMedia.setVisibility(View.VISIBLE);
         }
 
         public void bind(Tweet tweet) {
@@ -94,7 +93,8 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
             tvTime.setText(Tweet.getRelativeTime(tweet.createAt));
             if(!tweet.media.equals("")) {
                 Glide.with(context).load(tweet.media).into(ivMedia);
-            }
+                ivMedia.setVisibility(View.VISIBLE);
+            } else {ivMedia.setVisibility(View.GONE); }
         }
     }
 }
