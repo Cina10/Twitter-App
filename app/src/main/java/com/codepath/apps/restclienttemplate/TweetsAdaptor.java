@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.target.Target;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -20,8 +22,8 @@ import java.util.List;
 public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder> {
     Context context;
     List<Tweet> tweets;
-    //Pass in Contexts and List of tweets
 
+    //Pass in Contexts and List of tweets
     public TweetsAdaptor(Context context, List<Tweet> tweets) {
         this.context = context;
         this.tweets = tweets;
@@ -81,6 +83,7 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
             tvHandle = itemView.findViewById(R.id.tvHandle);
             tvTime = itemView.findViewById(R.id.tvTime);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+                ivMedia.setVisibility(View.VISIBLE);
         }
 
         public void bind(Tweet tweet) {
@@ -89,8 +92,9 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
             tvHandle.setText(tweet.user.handle);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfile);
             tvTime.setText(Tweet.getRelativeTime(tweet.createAt));
-            if(tweet.media != null)
+            if(!tweet.media.equals("")) {
                 Glide.with(context).load(tweet.media).into(ivMedia);
+            }
         }
     }
 }

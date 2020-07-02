@@ -41,12 +41,15 @@ public class Tweet {
 
         //Get image URL
         JSONObject entities = jsonObject.getJSONObject("entities");
-        if(entities.has("media_url"))
+        if(entities.has("media"))
         {
             JSONArray mediaArray = entities.getJSONArray("media");
-            if(mediaArray.)
-            mediaArray.getString("media_url_https");
+            tweet.media = mediaArray.getJSONObject(0).getString("media_url_https");
         }
+        else{
+            tweet.media = "";
+        }
+
 
         return tweet;
     }
