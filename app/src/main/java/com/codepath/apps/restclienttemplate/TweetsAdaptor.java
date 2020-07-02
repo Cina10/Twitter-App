@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
-import java.util.Locale;
 
 public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder> {
     Context context;
@@ -71,6 +70,7 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
         TextView tvScreenName;
         TextView tvHandle;
         TextView tvTime;
+        ImageView ivMedia;
 
 
         public Viewholder(@NonNull View itemView) {
@@ -80,6 +80,7 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvHandle = itemView.findViewById(R.id.tvHandle);
             tvTime = itemView.findViewById(R.id.tvTime);
+            ivMedia = itemView.findViewById(R.id.ivMedia);
         }
 
         public void bind(Tweet tweet) {
@@ -88,6 +89,8 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
             tvHandle.setText(tweet.user.handle);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfile);
             tvTime.setText(Tweet.getRelativeTime(tweet.createAt));
+            if(tweet.media != null)
+                Glide.with(context).load(tweet.media).into(ivMedia);
         }
     }
 }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
-import java.time.Period;
+
 
 @Parcel
 public class Tweet {
@@ -27,6 +27,7 @@ public class Tweet {
     public String body;
     public String createAt;
     public User user;
+    public String media;
 
 
     public Tweet() { }
@@ -37,6 +38,15 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+
+        //Get image URL
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        if(entities.has("media_url"))
+        {
+            JSONArray mediaArray = entities.getJSONArray("media");
+            if(mediaArray.)
+            mediaArray.getString("media_url_https");
+        }
 
         return tweet;
     }

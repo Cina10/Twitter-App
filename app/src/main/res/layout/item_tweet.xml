@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_margin="5dp">
 
     <ImageView
@@ -60,5 +60,17 @@
         android:layout_toStartOf="@+id/tvTime"
         android:layout_toEndOf="@+id/tvScreenName"
         tools:text="Chianna_li" />
+
+    <ImageView
+        android:id="@+id/ivMedia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBody"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="11dp"
+        android:layout_toEndOf="@+id/ivProfile"
+        android:scaleType="center"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </RelativeLayout>
