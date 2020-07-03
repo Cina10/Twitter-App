@@ -13,8 +13,9 @@
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name=".ComposeActivity"></activity>
-        <activity android:name=".TimelineActivity" />
+        <activity android:name=".ComposeActivity"/>
+        <activity android:name=".TimelineActivity"
+            android:launchMode="standard"/>
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"

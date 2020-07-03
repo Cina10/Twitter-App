@@ -46,54 +46,52 @@ public class ComposeActivity extends AppCompatActivity implements OnClickListene
         // set click listener on the two buttons
         btnTweet.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
-
-
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnTweet: {
-                // make API call to twitter to publish tweet
-                final String tweetContent = etCompose.getText().toString();
-                if (tweetContent.isEmpty()) {
-                    Toast.makeText(ComposeActivity.this,
-                            "Sorry, your tweet cannot be empty",
-                            Toast.LENGTH_SHORT).show();
-                    // Snackbar is typically better for error handling
-                    return;
-                } else if (tweetContent.length() > MAX_TWEET_LENGTH) {
-                    Toast.makeText(ComposeActivity.this,
-                            "Sorry, your tweet is too long",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Headers headers, JSON json) {
-                            Log.i(TAG, "onSuccess publishing tweet");
-                            try {
-                                Tweet tweet = Tweet.fromJson(json.jsonObject);
-                                Log.i(TAG, "Published tweet! It says: " + tweet.body);
-                                Intent i = new Intent();
-                                i.putExtra("tweet", Parcels.wrap(tweet));
-                                setResult(RESULT_OK, i);
-                                finish(); // Closes activity and sends result to parent
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+        if (v.getId() == R.id.btnCancel)
+            finish();
+        else {
+            // make API call to twitter to publish tweet
+            final String tweetContent = etCompose.getText().toString();
+            if (tweetContent.isEmpty()) {
+                Toast.makeText(ComposeActivity.this,
+                        "Sorry, your tweet cannot be empty",
+                        Toast.LENGTH_SHORT).show();
+                // Snackbar is typically better for error handling
+                return;
+            } else if (tweetContent.length() > MAX_TWEET_LENGTH) {
+                Toast.makeText(ComposeActivity.this,
+                        "Sorry, your tweet is too long",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Headers headers, JSON json) {
+                        Log.i(TAG, "onSuccess publishing tweet");
+                        try {
+                            Tweet tweet = Tweet.fromJson(json.jsonObject);
+                            Log.i(TAG, "Published tweet! It says: " + tweet.body);
+                            Intent i = new Intent();
+                            i.putExtra("tweet", Parcels.wrap(tweet));
+                            setResult(RESULT_OK, i);
+                            Log.i(TAG, "and sent");
+                            finish(); // Closes activity and sends result to parent
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+                    }
 
-                        @Override
-                        public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                            Log.e(TAG, "onFailure publishing Tweet", throwable);
-                        }
-                    });
-                }
-            }
-            case R.id.btnCancel: {
-                finish();
+                    @Override
+                    public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                        Log.e(TAG, "onFailure publishing Tweet", throwable);
+                    }
+                });
             }
         }
-
     }
+
 }
+
+

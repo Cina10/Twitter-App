@@ -90,12 +90,15 @@ public class TimelineActivity extends AppCompatActivity {
         populateHomeTimeline();
     }
 
+
+
     // Override when you need to pass things back to parent activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
             // Get data from intent
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
+
             // Update recycler view with new tweet
             // Modify data source to include tweet
             tweets.add(0, tweet);
@@ -105,6 +108,8 @@ public class TimelineActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 
     private void populateHomeTimeline() {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
