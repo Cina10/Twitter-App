@@ -2,6 +2,7 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -37,6 +38,8 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdaptor adaptor;
     SwipeRefreshLayout swipeContainer;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,10 @@ public class TimelineActivity extends AppCompatActivity {
         //recycler view setup: layout manager and the adaptor
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adaptor);
+
+        // new toolbar to replace action bar
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         populateHomeTimeline();
     }

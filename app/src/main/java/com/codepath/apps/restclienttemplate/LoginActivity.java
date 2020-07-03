@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.SampleModel;
 import com.codepath.apps.restclienttemplate.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
@@ -23,6 +21,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
+		// new toolbar to replace action bar
 		toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
