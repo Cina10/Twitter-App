@@ -14,16 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterClient> {
 	SampleModelDao sampleModelDao;
-	Toolbar toolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-
-		// new toolbar to replace action bar
-		toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
 
 		final SampleModel sampleModel = new SampleModel();
 		sampleModel.setName("CodePath");
