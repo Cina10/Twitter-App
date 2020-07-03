@@ -6,41 +6,78 @@
     android:layout_height="match_parent"
     tools:context=".ComposeActivity">
 
-    <Button
-        android:id="@+id/btnTweet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="5dp"
-        android:text="@string/tweet" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etComposeWrapper"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnTweet"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="0dp"
-        app:counterEnabled="true"
-        app:counterMaxLength="280"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="@color/twitter_blue"
-        android:textColorHint="@color/twitter_blue_30">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/twitter_blue"
+        android:minHeight="?attr/actionBarSize"
+        android:padding="5dp"
+        android:theme="?attr/actionBarTheme">
 
-
-        <EditText
-            android:id="@+id/etCompose"
+        <ImageView
+            android:id="@+id/ivLogo"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_logo"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <Button
+            android:id="@+id/btnTweet"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/tweet" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/etComposeWrapper"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="5dp"
             android:layout_marginTop="0dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/hey_what_s_up"
-            android:inputType="textMultiLine"
-            android:minLines="5"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginEnd="225dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toStartOf="@+id/btnTweet"
+            android:text="@string/cancel" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etComposeWrapper"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnTweet"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="0dp"
+            android:textColorHint="@color/twitter_blue_30"
+            app:boxStrokeColor="@color/twitter_blue"
+            app:counterEnabled="true"
+            app:counterMaxLength="280">
+
+
+            <EditText
+                android:id="@+id/etCompose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="@string/hey_what_s_up"
+                android:inputType="textMultiLine"
+                android:minLines="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </RelativeLayout>
 </RelativeLayout>
