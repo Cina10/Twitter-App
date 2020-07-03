@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="false"
     tools:context=".ComposeActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -26,7 +27,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:clickable="false">
 
         <Button
             android:id="@+id/btnTweet"
@@ -35,6 +37,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="5dp"
+            android:clickable="true"
             android:text="@string/tweet" />
 
         <Button
@@ -49,6 +52,7 @@
             android:layout_marginEnd="225dp"
             android:layout_marginBottom="0dp"
             android:layout_toStartOf="@+id/btnTweet"
+            android:clickable="true"
             android:text="@string/cancel" />
 
         <com.google.android.material.textfield.TextInputLayout

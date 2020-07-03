@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import org.parceler.Parcels;
 
 import okhttp3.Headers;
 
-public class ComposeActivity extends AppCompatActivity {
+public class ComposeActivity extends AppCompatActivity implements OnClickListener {
 
     public static final int MAX_TWEET_LENGTH = 280;
     public static final String TAG = "ComposeActivity";
@@ -27,6 +28,7 @@ public class ComposeActivity extends AppCompatActivity {
     EditText etCompose;
     Button btnTweet;
     TwitterClient client;
+    Button btnCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +41,30 @@ public class ComposeActivity extends AppCompatActivity {
         // connect fields to items in xml
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
+        btnCancel = findViewById(R.id.btnCancel);
 
-        // set click listener on the button
-        btnTweet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //make API call to twitter to publish tweet
+        // set click listener on the two buttons
+        btnTweet.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnTweet: {
+                // make API call to twitter to publish tweet
                 final String tweetContent = etCompose.getText().toString();
-                if (tweetContent.isEmpty()){
+                if (tweetContent.isEmpty()) {
                     Toast.makeText(ComposeActivity.this,
-                            "Sorry, Your tweet cannot be empty",
+                            "Sorry, your tweet cannot be empty",
                             Toast.LENGTH_SHORT).show();
                     // Snackbar is typically better for error handling
                     return;
-                } else if (tweetContent.length() > MAX_TWEET_LENGTH){
+                } else if (tweetContent.length() > MAX_TWEET_LENGTH) {
                     Toast.makeText(ComposeActivity.this,
-                            "Sorry, Your tweet is too long",
+                            "Sorry, your tweet is too long",
                             Toast.LENGTH_SHORT).show();
                 } else {
                     client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
@@ -80,6 +90,10 @@ public class ComposeActivity extends AppCompatActivity {
                     });
                 }
             }
-        });
+            case R.id.btnCancel: {
+                finish();
+            }
+        }
+
     }
 }
