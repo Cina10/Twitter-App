@@ -26,8 +26,8 @@
         app:counterEnabled="true"
         app:counterMaxLength="280"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="#1DA1F2"
-        android:textColorHint="#292828">
+        app:boxStrokeColor="@color/twitter_blue"
+        android:textColorHint="@color/twitter_blue_30">
 
 
         <EditText
