@@ -38,8 +38,9 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdaptor adaptor;
     SwipeRefreshLayout swipeContainer;
-    Toolbar toolbar;
     ImageView ivCompose;
+    EndlessRecyclerViewScrollListener scrollListener;
+
 
 
     @Override
@@ -48,14 +49,13 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         client = TwitterApp.getRestClient(this);
 
+        // pull to refresh
         swipeContainer = findViewById(R.id.swipeContainer);
-
-        //adjust colors of refresh animation
+        // adjust colors of refresh animation
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                         android.R.color.holo_green_light,
                         android.R.color.holo_orange_light,
                         android.R.color.holo_red_light);
-
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -64,19 +64,18 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
-        //find the recycler view
+        // find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
 
-        //init list of tweets and the adaptor
+        // init list of tweets and the adaptor
         tweets = new ArrayList<>();
         adaptor = new TweetsAdaptor(this, tweets);
 
-        //recycler view setup: layout manager and the adaptor
+        // recycler view setup: layout manager and the adaptor
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adaptor);
 
-        // new toolbar to replace action bar
-        toolbar = findViewById(R.id.toolbar);
+        // make compose graphic clickable
         ivCompose = findViewById(R.id.ivCompose);
 
         ivCompose.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +86,15 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
 
+        // endless scrolling
+        scrollListener = new EndlessRecyclerViewScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+
+            }
+        };
+
+
         populateHomeTimeline();
     }
 
@@ -96,13 +104,13 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
-            // Get data from intent
+            // get data from intent
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
 
-            // Update recycler view with new tweet
-            // Modify data source to include tweet
+            // update recycler view with new tweet
+            // modify data source to include tweet
             tweets.add(0, tweet);
-            // Update adaptor
+            // update adaptor
             adaptor.notifyItemInserted(0);
             rvTweets.smoothScrollToPosition(0);
         }
@@ -122,9 +130,9 @@ public class TimelineActivity extends AppCompatActivity {
                     adaptor.addAll(Tweet.fromJsonArray(jsonArray));
                     swipeContainer.setRefreshing(false);
 
-                    // Before implementing swipe to refresh
-                    //tweets.addAll(Tweet.fromJsonArray(jsonArray));
-                    //adaptor.notifyDataSetChanged();
+                    // before implementing swipe to refresh
+                    // tweets.addAll(Tweet.fromJsonArray(jsonArray));
+                    // adaptor.notifyDataSetChanged();
                } catch (JSONException e) {
                   Log.e(TAG, "JSON exception", e);
                }

@@ -1,7 +1,5 @@
 package com.codepath.apps.restclienttemplate;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.github.scribejava.apis.TwitterApi;
 
 import org.json.JSONException;
 import org.parceler.Parcels;
@@ -77,7 +76,7 @@ public class ComposeActivity extends AppCompatActivity implements OnClickListene
                             i.putExtra("tweet", Parcels.wrap(tweet));
                             setResult(RESULT_OK, i);
                             Log.i(TAG, "and sent");
-                            finish(); // Closes activity and sends result to parent
+                            finish(); // closes activity and sends result to parent
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

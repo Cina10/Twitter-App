@@ -23,13 +23,13 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
     Context context;
     List<Tweet> tweets;
 
-    //Pass in Contexts and List of tweets
+    // Pass in Contexts and List of tweets
     public TweetsAdaptor(Context context, List<Tweet> tweets) {
         this.context = context;
         this.tweets = tweets;
     }
 
-    //for each row inflate the layout
+    // for each row inflate the layout
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,12 +37,12 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
         return new Viewholder(view);
     }
 
-    //bind values based on the position of the element
+    // bind values based on the position of the element
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-        //get the data
+        // get the data
         Tweet tweet = tweets.get(position);
-        //bind tweet to the viewholder
+        // bind tweet to the viewholder
         holder.bind(tweet);
 
     }
@@ -52,9 +52,9 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
         return tweets.size();
     }
 
-    //Clean all elements of recycler for swipe refresh
+    // Clean all elements of recycler for swipe refresh
     public void clear(){
-        tweets.clear(); //make sure you're modifying existing reference to tweets rather than making a new one
+        tweets.clear(); // make sure you're modifying existing reference to tweets rather than making a new one
         notifyDataSetChanged();
     }
 

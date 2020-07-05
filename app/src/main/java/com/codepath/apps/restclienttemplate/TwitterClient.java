@@ -52,7 +52,7 @@ public class TwitterClient extends OAuthBaseClient {
 		client.get(apiUrl, params, handler);
 	}
 
-	//publishes twitter
+	// publishes twitter
 	public void publishTweet(String tweetContent, JsonHttpResponseHandler handler){
 		String apiUrl = getApiUrl("statuses/update.json");
 		RequestParams params = new RequestParams();
