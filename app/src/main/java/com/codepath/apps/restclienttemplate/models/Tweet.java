@@ -28,6 +28,7 @@ public class Tweet {
     public String createAt;
     public User user;
     public String media;
+    public long id;
 
 
     public Tweet() { }
@@ -38,13 +39,14 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createAt = jsonObject.getString("created_at");
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.id = jsonObject.getLong("id");
 
         //Get image URL
         JSONObject entities = jsonObject.getJSONObject("entities");
         if(entities.has("media")) {
             JSONArray mediaArray = entities.getJSONArray("media");
             tweet.media = mediaArray.getJSONObject(0).getString("media_url_https");
-        } else { tweet.media = ""; }
+        } else tweet.media = "";
 
 
         return tweet;

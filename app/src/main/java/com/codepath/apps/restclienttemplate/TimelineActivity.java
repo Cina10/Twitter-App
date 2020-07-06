@@ -42,7 +42,6 @@ public class TimelineActivity extends AppCompatActivity {
     EndlessRecyclerViewScrollListener scrollListener;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +52,9 @@ public class TimelineActivity extends AppCompatActivity {
         swipeContainer = findViewById(R.id.swipeContainer);
         // adjust colors of refresh animation
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                        android.R.color.holo_green_light,
-                        android.R.color.holo_orange_light,
-                        android.R.color.holo_red_light);
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -72,7 +71,8 @@ public class TimelineActivity extends AppCompatActivity {
         adaptor = new TweetsAdaptor(this, tweets);
 
         // recycler view setup: layout manager and the adaptor
-        rvTweets.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adaptor);
 
         // make compose graphic clickable
@@ -87,23 +87,49 @@ public class TimelineActivity extends AppCompatActivity {
         });
 
         // endless scrolling
-        scrollListener = new EndlessRecyclerViewScrollListener() {
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-
+                Log.i(TAG, "onLoadMore " + page);
+                loadMoreData();
             }
         };
 
+        rvTweets.addOnScrollListener(scrollListener);
 
         populateHomeTimeline();
+
+
     }
 
+    // loads more data for infinite scroll
+    private void loadMoreData() {
+        client.getNextPageOfTweets(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                Log.i(TAG, "onSuccess of loadMoreData");
+                JSONArray jsonArray = json.jsonArray;
+                try {
+                    List<Tweet> tweets = Tweet.fromJsonArray(jsonArray);
+                    // appends new tweets to adaptor
+                    adaptor.addAll(tweets);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.i(TAG, "onFailure of loadMoreData", throwable);
+            }
+        }, tweets.get(tweets.size() - 1).id);
+    }
 
 
     // Override when you need to pass things back to parent activity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             // get data from intent
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
 
@@ -116,7 +142,6 @@ public class TimelineActivity extends AppCompatActivity {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
 
     private void populateHomeTimeline() {
@@ -133,9 +158,9 @@ public class TimelineActivity extends AppCompatActivity {
                     // before implementing swipe to refresh
                     // tweets.addAll(Tweet.fromJsonArray(jsonArray));
                     // adaptor.notifyDataSetChanged();
-               } catch (JSONException e) {
-                  Log.e(TAG, "JSON exception", e);
-               }
+                } catch (JSONException e) {
+                    Log.e(TAG, "JSON exception", e);
+                }
 
             }
 
