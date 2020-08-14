@@ -2,17 +2,13 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -33,7 +29,7 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     public static final int REQUEST_CODE = 20;
 
-    TwitterClient client;
+    TwitterClient client; // could also be in TwitterApp bc this is costly to create
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdaptor adaptor;
@@ -75,9 +71,8 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(layoutManager);
         rvTweets.setAdapter(adaptor);
 
-        // make compose graphic clickable
         ivCompose = findViewById(R.id.ivCompose);
-
+        // make compose graphic clickable
         ivCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

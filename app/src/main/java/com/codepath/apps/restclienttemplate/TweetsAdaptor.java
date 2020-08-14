@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.target.Target;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -91,7 +89,7 @@ public class TweetsAdaptor extends RecyclerView.Adapter<TweetsAdaptor.Viewholder
             tvHandle.setText(tweet.user.handle);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfile);
             tvTime.setText(Tweet.getRelativeTime(tweet.createAt));
-            if(!tweet.media.equals("")) {
+            if (!tweet.media.equals("")) {
                 Glide.with(context).load(tweet.media).into(ivMedia);
                 ivMedia.setVisibility(View.VISIBLE);
             } else {ivMedia.setVisibility(View.GONE); }

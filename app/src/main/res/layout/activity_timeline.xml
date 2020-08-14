@@ -18,7 +18,7 @@
         android:padding="2dp"
         android:theme="?attr/actionBarTheme"
         app:title="@string/app_name"
-        app:titleTextColor="#FFFFFF">
+        app:titleTextColor="@color/white">
 
         <RelativeLayout
             android:layout_width="match_parent"
